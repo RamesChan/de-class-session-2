@@ -1,0 +1,27 @@
+:root { font-family: system-ui, sans-serif; color: #18334a; background: #edf3f7; }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+.calculator { width: min(100%, 540px); background: white; border-radius: 24px; padding: 36px; box-shadow: 0 16px 60px #18334a14; }
+.eyebrow { color: #087b73; font-weight: 700; font-size: 14px; }
+h1 { font-size: 36px; margin: 8px 0; }
+.intro, .note { color: #596b7b; }
+.intro { margin-bottom: 28px; }
+.numbers { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+label, legend { font-weight: 600; font-size: 14px; }
+input[type=number] { width: 100%; margin-top: 8px; padding: 14px; font: inherit; font-size: 22px; border: 1px solid #a7bac8; border-radius: 10px; }
+fieldset { border: 0; padding: 0; margin: 24px 0; }
+legend { margin-bottom: 10px; }
+.operators { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.operator { position: relative; cursor: pointer; }
+.operator input { position: absolute; opacity: 0; }
+.operator span { display: block; text-align: center; padding: 8px; font-size: 28px; border: 1px solid #a7bac8; border-radius: 10px; }
+.operator input:checked + span { background: #e1f5f0; border-color: #087b73; color: #06665f; }
+input:focus-visible, button:focus-visible, .operator input:focus-visible + span { outline: 3px solid #237dd1; outline-offset: 3px; }
+button { width: 100%; padding: 15px; border: 0; border-radius: 10px; background: #087b73; color: white; font: inherit; font-weight: 700; cursor: pointer; }
+button:hover { background: #06665f; }
+.result { margin-top: 24px; border-radius: 14px; background: #f0f6fa; padding: 22px; overflow-wrap: anywhere; }
+.result p { margin: 0 0 6px; }
+output { font-size: 40px; font-weight: 700; }
+.error { color: #a32929; }
+.note { font-size: 12px; margin-bottom: 0; }
+@media (max-width: 420px) { .calculator { padding: 24px; } .numbers { grid-template-columns: 1fr; } h1 { font-size: 30px; } }

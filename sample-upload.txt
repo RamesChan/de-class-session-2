@@ -1,0 +1,2 @@
+Hello from the Docker for Data Engineers classroom!
+Upload this file to RustFS, then download it and compare the contents.

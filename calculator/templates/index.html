@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>เครื่องคิดเลข</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="calculator">
+    <span class="eyebrow">คิดเลขง่าย ๆ</span>
+    <h1>เครื่องคิดเลข</h1>
+    <p class="intro">ใส่ตัวเลข เลือกเครื่องหมาย แล้วลองคำนวณกัน</p>
+    <form method="post">
+      <div class="numbers">
+        <label>ตัวเลขที่หนึ่ง<input name="left" type="number" step="any" min="-1000000000000" max="1000000000000" value="{{ left }}" placeholder="12" required></label>
+        <label>ตัวเลขที่สอง<input name="right" type="number" step="any" min="-1000000000000" max="1000000000000" value="{{ right }}" placeholder="3" required></label>
+      </div>
+      <fieldset>
+        <legend>เลือกวิธีคำนวณ</legend>
+        <div class="operators">
+          {% for value, symbol in operators.items() %}
+          <label class="operator"><input type="radio" name="operation" value="{{ value }}" {% if operation == value %}checked{% endif %} required><span>{{ symbol }}</span></label>
+          {% endfor %}
+        </div>
+      </fieldset>
+      <button type="submit">คำนวณ</button>
+    </form>
+    <section class="result" aria-live="polite">
+      {% if error %}
+      <p class="error" role="alert">{{ error }}</p>
+      {% elif result is not none %}
+      <p>{{ left }} {{ operators[operation] }} {{ right }} =</p>
+      <output>{{ result }}</output>
+      {% else %}
+      <p>ผลลัพธ์จะแสดงตรงนี้</p><output>—</output>
+      {% endif %}
+    </section>
+    <p class="note">แสดงทศนิยมสูงสุด 10 ตำแหน่ง</p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,37 @@
+name: de-docker-class
+
+services:
+  rustfs:
+    image: rustfs/rustfs:1.0.0-rc.6-glibc
+    environment:
+      RUSTFS_ACCESS_KEY: student
+      RUSTFS_SECRET_KEY: classroom
+      RUSTFS_CONSOLE_ENABLE: "true"
+      RUSTFS_ADDRESS: ":9000"
+      RUSTFS_CONSOLE_ADDRESS: ":9001"
+    ports:
+      - "127.0.0.1:9000:9000"
+      - "127.0.0.1:9001:9001"
+    volumes:
+      - ./rustfs_data:/data
+
+  clickhouse:
+    image: clickhouse:26.8
+    environment:
+      CLICKHOUSE_USER: student
+      CLICKHOUSE_PASSWORD: classroom
+      CLICKHOUSE_DB: analytics
+    ports:
+      - "127.0.0.1:8123:8123"
+    volumes:
+      - ./ch_data:/var/lib/clickhouse
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    healthcheck:
+      test: ["CMD", "clickhouse-client", "--user", "student", "--password", "classroom", "--query", "SELECT 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 20s
